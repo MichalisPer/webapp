@@ -24,7 +24,7 @@ class ProfileFactory extends Factory
         static $count = 2;
         return [
             'age' => (string)$this->faker->numberBetween(0,100),
-            'phone' => $this-> faker->phoneNumber,
+            'phone' => $this->faker->phoneNumber,
             'country' => $this->faker->country,
             'favleague' => $this->faker->country,
             'bio' => $this->faker->paragraph,
