@@ -38,10 +38,11 @@ class PostController extends Controller {
                 ->create($request->only(['title','description']));
 
         $image0 = $request->file('file');
-        $imageName = time().'.'.$image0->extension();
-        $image0->move(public_path('images'),$imageName);
-
-        $post->image = $imageName;
+        if($image0 != null){
+            $imageName = time().'.'.$image0->extension();
+            $image0->move(public_path('images'),$imageName);
+            $post->image = $imageName;
+        }
 
         $post->save();
 
@@ -102,6 +103,17 @@ class PostController extends Controller {
             }],
         ]);
 
+        $post->update($request->only(['title','description']));
+
+        $image0 = $request->file('file');
+        if($image0 != null){
+            $imageName = time().'.'.$image0->extension();
+            $image0->move(public_path('images'),$imageName);
+            $post->image = $imageName;
+        }
+
+        $post->update();
+
         if($post){
             $tagNames = explode(',',$request->get('tags'));
             $tagIds = [];
@@ -114,16 +126,6 @@ class PostController extends Controller {
             }
 
         $post->tags()->sync($tagIds);
-
-        $post->update($request->only(['title','description']));
-
-        $image0 = $request->file('file');
-        $imageName = time().'.'.$image0->extension();
-        $image0->move(public_path('images'),$imageName);
-
-        $post->image = $imageName;
-
-        $post->update();
 
         if(Auth::user()->is_admin == 1){
             return redirect()->to(route('admin.show', ['post' => $post]));

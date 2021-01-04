@@ -6,10 +6,10 @@
         <div class="col-sm-6">
             <div id="football" class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Beat the booker {{$tags->first()}}</h5>
+                    <h5 class="card-title">Beat the booker</h5>
                     <p class="card-text">Share your own predictions about a specific game and discuss it with the community in order to beat the booker!</p>
                     <a class="nav-link" href="{{ route('posts.index') }}"><b>Posts and Predictions</b></a>
-                    <button id='api-button' type="button" class="btn btn-success"><b>Get Quote of the day</b></button>
+                    <button id='api-button' type="button" class="btn btn-primary"><b>Get Quote of the day</b></button>
                 </div>
             </div>
         </div>
@@ -62,24 +62,6 @@
             let throwawayNode = d.removeChild(requiredElement);
         }
 
-
-
-        /*const Http = new XMLHttpRequest();
-        const url='https://allsportsapi.com/api/football/?met=Leagues&APIkey=cd583b54ef2fea2b8255e942d00d840537d2bc17d47684ec0971de1cb54ee1ce';
-        Http.open("GET", url);
-        Http.send();
-
-        Http.onreadystatechange = (e) => {
-            var JSONdata = Http.responseText.st;
-            var response = JSON.parse(JSONdata);
-
-            response.l
-
-            var num = Http.responseText.t;
-            console.log(num);
-        }
-
-*/
         // Set up the HTTP request
         var xhr = new XMLHttpRequest();
         // Setup the listener to process completed requests
