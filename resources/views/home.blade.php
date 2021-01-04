@@ -4,12 +4,18 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
-            <div id="football" class="card">
+            <div id="quote-card" class="card">
                 <div class="card-body">
                     <h5 class="card-title">Beat the booker</h5>
                     <p class="card-text">Share your own predictions about a specific game and discuss it with the community in order to beat the booker!</p>
-                    <a class="nav-link" href="{{ route('posts.index') }}"><b>Posts and Predictions</b></a>
-                    <button id='api-button' type="button" class="btn btn-primary"><b>Get Quote of the day</b></button>
+                    <div class="row">
+                        <div class="col-auto mr-auto">
+                            <a class="nav-link" href="{{ route('posts.index') }}"><b>Posts and Predictions</b></a>
+                        </div>
+                        <div class="col-auto">
+                            <button id='api-button' type="button" class="btn btn-primary"><b>Get Quote of the day</b></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,7 +57,7 @@
     }
     $("#api-button").click(function(e){
 
-        let d = document.getElementById("football");
+        let d = document.getElementById("quote-card");
         var elements = document.getElementsByClassName('val');
 
         if (elements.length == 0 ){
@@ -73,20 +79,14 @@
                 var JSONdata = xhr.responseText; /*JSON String*/
                 var response = JSON.parse(JSONdata); /* Javascript object*/
 
-                var num = response.length; /*number of places returned*/
-                const el1 = document.querySelector('#football');
+                var num = response.length;
+                const el1 = document.querySelector('#quote-card');
 
                 var index = getRandomInt(num);
                 res = document.createElement('div');
                 res.textContent = response[index].text
-                //res.classList.add('val');
                 res.setAttribute("class", 'val');
                 el1.appendChild(res);
-                //console.log(response.result[i].league_name);
-
-
-
-                /*If the user does not provide the correct address and province, more than one options - locations may be returned. We always choose the first one because it is usually the expected.*/
 
             } else { //the request has failed
 

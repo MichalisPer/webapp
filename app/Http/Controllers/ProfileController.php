@@ -21,6 +21,8 @@ class ProfileController extends Controller
             return(abort(404));
         }
 
+        $profile->user->posts = $profile->user->posts->sortBy([['created_at', 'desc']]);
+
         return view('profiles.edit', ['profile' => $profile]);
 
     }

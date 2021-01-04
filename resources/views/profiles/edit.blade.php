@@ -98,10 +98,13 @@
                         </tr>
                         <tr>
                             <td>
-                                <a href={{ route('posts.show', ['post' => $post]) }} class="btn">{{ $post->description}}</a>
+                                @if($post->image != null)
+                                    <img src= "/images/{{$post->image}}" /><br><br>
+                                @endif
+                                {{ $post->description}}
                                 <footer class="blockquote-footer">Posted by {{$post->user->username}} on {{$post->created_at}} <br>&nbsp;&nbsp;&nbsp;
                                 @foreach($post->tags as $tag)
-                                    <b><i>#{{ $tag->name}}</i></b>
+                                    <b><i>{{ $tag->name}}</i></b>
                                 @endforeach
                                 </footer></blockquote></td>
                         </tr>
