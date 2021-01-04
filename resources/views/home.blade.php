@@ -4,11 +4,12 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
-            <div class="card">
+            <div id="football" class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Beat the booker</h5>
+                    <h5 class="card-title">Beat the booker {{$tags->first()}}</h5>
                     <p class="card-text">Share your own predictions about a specific game and discuss it with the community in order to beat the booker!</p>
                     <a class="nav-link" href="{{ route('posts.index') }}"><b>Posts and Predictions</b></a>
+                    <button id='api-button' type="button" class="btn btn-success"><b>Get Quote of the day</b></button>
                 </div>
             </div>
         </div>
@@ -44,4 +45,75 @@
         </div>
     </div>
 </div>
+<script>
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+    }
+    $("#api-button").click(function(e){
+
+        let d = document.getElementById("football");
+        var elements = document.getElementsByClassName('val');
+
+        if (elements.length == 0 ){
+
+        }
+        else {
+            var requiredElement = elements[0];
+            let throwawayNode = d.removeChild(requiredElement);
+        }
+
+
+
+        /*const Http = new XMLHttpRequest();
+        const url='https://allsportsapi.com/api/football/?met=Leagues&APIkey=cd583b54ef2fea2b8255e942d00d840537d2bc17d47684ec0971de1cb54ee1ce';
+        Http.open("GET", url);
+        Http.send();
+
+        Http.onreadystatechange = (e) => {
+            var JSONdata = Http.responseText.st;
+            var response = JSON.parse(JSONdata);
+
+            response.l
+
+            var num = Http.responseText.t;
+            console.log(num);
+        }
+
+*/
+        // Set up the HTTP request
+        var xhr = new XMLHttpRequest();
+        // Setup the listener to process completed requests
+        xhr.onreadystatechange = function() {
+            // Only run if the request is complete
+            if (xhr.readyState !== 4) return;
+            // Process the return data
+            if (xhr.status >= 200 && xhr.status < 300) { //the request is successful
+                var JSONdata = xhr.responseText; /*JSON String*/
+                var response = JSON.parse(JSONdata); /* Javascript object*/
+
+                var num = response.length; /*number of places returned*/
+                const el1 = document.querySelector('#football');
+
+                var index = getRandomInt(num);
+                res = document.createElement('div');
+                res.textContent = response[index].text
+                //res.classList.add('val');
+                res.setAttribute("class", 'val');
+                el1.appendChild(res);
+                //console.log(response.result[i].league_name);
+
+
+
+                /*If the user does not provide the correct address and province, more than one options - locations may be returned. We always choose the first one because it is usually the expected.*/
+
+            } else { //the request has failed
+
+                console.log('error', xhr);
+                        }
+            };
+
+            xhr.open('GET','https://type.fit/api/quotes');
+            xhr.send();
+    });
+</script>
 @endsection

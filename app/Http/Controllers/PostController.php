@@ -144,7 +144,9 @@ class PostController extends Controller {
             return(abort(403));
         }
 
-        unlink(public_path('images').'/'.$post->image);
+        if($post->image != null){
+            unlink(public_path('images').'/'.$post->image);
+        }
 
         $post->delete();
 

@@ -5,23 +5,14 @@ namespace Database\Factories;
 use App\Models\Profile;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ProfileFactory extends Factory
-{
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
+class ProfileFactory extends Factory {
+
     protected $model = Profile::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
-    {
+    public function definition(){
+
         static $count = 2;
+
         return [
             'age' => (string)$this->faker->numberBetween(0,100),
             'phone' => $this->faker->phoneNumber,

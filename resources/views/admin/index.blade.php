@@ -22,7 +22,9 @@
                                 <td><b>Title: </b> {{ $post->title }}</td>
                             </tr>
                             <tr>
-                                <td>
+                                <td>@if($post->image != null)
+                                        <a href={{ route('admin.show', ['post' => $post]) }} class="btn"><img src= "/images/{{$post->image}}" /></a><br><br>
+                                    @endif
                                     <a href={{ route('admin.show', ['post' => $post]) }} class="btn">{{ $post->description}}</a>
                                     <footer class="blockquote-footer">Posted by <a href={{ route('profiles.show', ['profile' => $post->user->profile]) }}>{{$post->user->username}}</a> on {{$post->created_at}}<br>&nbsp;&nbsp;&nbsp;
                                     @foreach($post->tags as $tag)

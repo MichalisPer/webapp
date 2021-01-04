@@ -39,9 +39,7 @@ class ProfileController extends Controller
             'favleague' => 'nullable|max:15',
         ]);
 
-
         $profile->update($request->only(['bio','age','phone','country','favleague','user_id']));
-
 
         return redirect()->to(route('profiles.show', ['profile' => $profile]));
     }

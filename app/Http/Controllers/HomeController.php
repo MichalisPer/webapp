@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Tag;
 
 class HomeController extends Controller {
 
@@ -14,7 +14,10 @@ class HomeController extends Controller {
 
     public function index()
     {
-        return view('home');
+
+        $tags = Tag::all();
+
+        return view('home', ['tags' => $tags]);
     }
 
     public function adminIndex(){

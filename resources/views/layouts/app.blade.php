@@ -20,6 +20,17 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        .val{
+            text-align: center;
+            font-style: italic;
+            text-color: rgb(51, 51, 47);
+            border-style: groove;
+            font: Georgia, serif;
+
+        }
+    </style>
 </head>
 <body>
     <div id="app">

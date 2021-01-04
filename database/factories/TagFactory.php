@@ -5,24 +5,14 @@ namespace Database\Factories;
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class TagFactory extends Factory
-{
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
+class TagFactory extends Factory {
+
     protected $model = Tag::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
-    {
+    public function definition(){
+
         return [
-            'name' => '#'.$this->faker->randomElement(['PremierLeague','SerieA','Championship','League1', 'League2'])
+            'name' => '#'.$this->faker->randomElement(['PremierLeague','SerieA','Championship','League1', 'League2', 'EuropaLeague','ChampionsLeague', 'Ligue1', 'LaLiga'])
         ];
     }
 }

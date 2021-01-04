@@ -15,6 +15,9 @@
                             <a href={{ route('posts.show', ['post' => $post]) }} class="btn btn-primary">Normal View</a>
                         </div>
                     </div>
+                    @if($post->image != null)
+                        <img src= "/images/{{$post->image}}" /></a><br><br>
+                    @endif
                     <p><b>Content: </b> {{ $post->description }}</p>
                 <div class="card-footer">
                     <footer class="blockquote-footer">Posted by <a href={{ route('profiles.show', ['profile' => $post->user->profile]) }}>{{$post->user->username}}</a> on {{$post->created_at}}<br>&nbsp;&nbsp;&nbsp;
@@ -25,7 +28,7 @@
                 </div>
                 <br>
                 <a href={{ route('posts.edit', ['post' => $post]) }} class="btn btn-primary">Edit post</a>
-                <a href={{ route('posts.index') }} class="btn btn-secondary">Back</a>
+                <a href={{ route('admin.index') }} class="btn btn-secondary">Back</a>
                 <hr />
                 <h4 id="ff">Comments</h4>
                 <table id="commentTable" class="table table-striped">
