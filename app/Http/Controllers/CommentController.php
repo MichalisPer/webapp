@@ -7,7 +7,7 @@ use App\Models\Comment;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 
-class CommentController extends Controller{
+class CommentController extends Controller {
 
     public function store(Request $request){
 
@@ -17,34 +17,32 @@ class CommentController extends Controller{
                         $tagNames = explode(',',$value);
                         foreach($tagNames as $tagName){
                             if(strlen($tagName) > 14){
-                                $fail('The '.$attribute.' is invalid.');
+                                $fail('The '.$attribute.' is longer than 14 characters.');
                             }
                         }
                     }],
         ]);
 
-        $comment = Auth::user()->comments()
-                ->create($request->only(['description', 'post_id' ]));
-
+        $comment = Auth::user()->comments()->create($request->only(['description','post_id']));
 
         if($comment){
             $tagNames = explode(',',$request->get('tags'));
             $tagIds = [];
             foreach($tagNames as $tagName){
-                    $tag = Tag::firstOrCreate(['name'=>'#'.$tagName]);
-                    if($tag){
-                        $tagIds[] = $tag->id;
-                    }
+                $tag = Tag::firstOrCreate(['name'=>'#'.$tagName]);
+                if($tag){
+                    $tagIds[] = $tag->id;
                 }
             }
+        }
+
         $comment->tags()->sync($tagIds);
-
-
 
         return response()->json(Comment::with('tags')->find($comment->id));
     }
 
     public function edit(Comment $comment){
+
         if(($comment->user_id != Auth::id()) && (Auth::user()->is_admin != 1)){
             return(abort(404));
         }
@@ -53,13 +51,6 @@ class CommentController extends Controller{
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Comment $comment){
 
         if(($comment->user_id != Auth::id()) && (Auth::user()->is_admin != 1)){
@@ -72,7 +63,7 @@ class CommentController extends Controller{
                 $tagNames = explode(',',$value);
                 foreach($tagNames as $tagName){
                     if(strlen($tagName) > 14){
-                        $fail('The '.$attribute.' is invalid.');
+                        $fail('The '.$attribute.' is longer than 14 characters.');
                     }
                 }
             }],
@@ -82,12 +73,13 @@ class CommentController extends Controller{
             $tagNames = explode(',',$request->get('tags'));
             $tagIds = [];
             foreach($tagNames as $tagName){
-                    $tag = Tag::firstOrCreate(['name'=>'#'.$tagName]);
-                    if($tag){
-                        $tagIds[] = $tag->id;
-                    }
+                $tag = Tag::firstOrCreate(['name'=>'#'.$tagName]);
+                if($tag){
+                    $tagIds[] = $tag->id;
                 }
             }
+        }
+
         $comment->tags()->sync($tagIds);
 
         $comment->update($request->only(['description', 'post_id']));
@@ -99,7 +91,8 @@ class CommentController extends Controller{
         return redirect()->to(route('posts.show', ['post' => $comment->post]));
     }
 
-    public function destroy(Request $request, Comment $comment){
+    public function destroy(Comment $comment){
+
         if(($comment->user_id != Auth::id()) && (Auth::user()->is_admin != 1)){
             return(abort(403));
         }

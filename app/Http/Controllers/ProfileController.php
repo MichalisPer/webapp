@@ -9,11 +9,14 @@ use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
     public function show(Profile $profile){
+
         $profile->user->posts = $profile->user->posts->sortBy([['created_at', 'desc']]);
+
         return view('profiles.show', ['profile' => $profile]);
     }
 
     public function edit(Profile $profile){
+
         if($profile->user_id != Auth::id()){
             return(abort(404));
         }
